@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface MapSectionProps {
   address: string;
 }
@@ -9,13 +11,19 @@ export default function MapSection({ address }: MapSectionProps) {
         <h2 className="section-title fade-in">오시는 길</h2>
         <p className="section-subtitle fade-in">도농역에서 가까운 곳에 위치해 있습니다</p>
         <div className="map-wrap fade-in">
-          <iframe
-            className="map-embed"
-            src="https://map.kakao.com/?q=%EB%8F%84%EB%86%8D%EC%97%AD%20%EC%97%B0%EC%84%B8%EC%A1%B0%EC%9D%B4%EC%B9%98%EA%B3%BC&map_type=TYPE_MAP"
-            title="연세조이치과 위치"
-            loading="lazy"
-            allowFullScreen
-          ></iframe>
+          <a
+            href="https://map.kakao.com/link/map/연세조이치과,37.6118,127.1567"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/images/map.png"
+              alt="연세조이치과 위치 지도"
+              width={900}
+              height={500}
+              className="map-embed"
+            />
+          </a>
           <div className="map-info">
             <div className="map-address">
               <svg viewBox="0 0 20 20" fill="currentColor">
