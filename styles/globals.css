@@ -216,8 +216,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .doctor-photo-img {
   width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: top;
+  object-fit: contain;
 }
 .doctor-photo-placeholder {
   width: 160px; height: 160px; border-radius: 50%;
