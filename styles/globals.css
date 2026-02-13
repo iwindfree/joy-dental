@@ -211,11 +211,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .doctor-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 .doctor-photo {
   background: linear-gradient(135deg, var(--primary-light), #dbeafe);
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
+  position: relative;
 }
 .doctor-photo-img {
-  width: 100%; height: auto; display: block;
+  width: 100%; display: block;
 }
 .doctor-photo-placeholder {
   width: 160px; height: 160px; border-radius: 50%;
@@ -223,6 +222,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: flex; align-items: center; justify-content: center;
   color: #fff; font-size: 3.5rem; font-weight: 900;
   box-shadow: 0 8px 32px rgba(43,125,233,0.3);
+  margin: 60px auto;
 }
 .doctor-info { padding: 32px; }
 .doctor-tag {
