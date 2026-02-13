@@ -1,66 +1,48 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { safeFetch } from "@/sanity/client";
+import {
+  siteSettingsQuery,
+  heroSlidesQuery,
+  doctorsQuery,
+  hoursQuery,
+  recentPostsQuery,
+} from "@/sanity/lib/queries";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Doctors from "@/components/Doctors";
+import Treatments from "@/components/Treatments";
+import Hours from "@/components/Hours";
+import MapSection from "@/components/MapSection";
+import BlogPreview from "@/components/BlogPreview";
 
-export default function Home() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function HomePage() {
+  const [settings, slides, doctors, hours, posts] = await Promise.all([
+    safeFetch<any>(siteSettingsQuery),
+    safeFetch<any[]>(heroSlidesQuery),
+    safeFetch<any[]>(doctorsQuery),
+    safeFetch<any>(hoursQuery),
+    safeFetch<any[]>(recentPostsQuery),
+  ]);
+
+  const phone1 = settings?.phone1 || "031-553-7528";
+  const phone2 = settings?.phone2 || "031-553-7529";
+  const email = settings?.email || "yonseicholee@naver.com";
+  const address = settings?.address || "경기 남양주시 도농로32 부영중앙상가 6층";
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      <Hero slides={slides || []} phone1={phone1} />
+      <About />
+      <Doctors doctors={doctors || []} />
+      <Treatments />
+      <Hours
+        schedule={hours?.schedule || []}
+        phone1={phone1}
+        phone2={phone2}
+        email={email}
+      />
+      <MapSection address={address} />
+      <BlogPreview posts={posts || []} />
+    </>
   );
 }
